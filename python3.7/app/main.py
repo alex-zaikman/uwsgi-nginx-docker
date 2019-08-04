@@ -3,15 +3,15 @@ import json
 import pandas as pd
 from flask import Flask, request, make_response
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 
-@application.route("/ping", methods=['GET'])
+@app.route("/ping", methods=['GET'])
 def ping():
     return ''
 
 
-@application.route("/invocations", methods=['POST'])
+@app.route("/invocations", methods=['POST'])
 def invocations():
     req_data = request.get_data()
      # TODO
