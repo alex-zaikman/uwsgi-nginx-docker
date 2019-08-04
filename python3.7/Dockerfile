@@ -92,7 +92,7 @@ RUN set -x \
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
-EXPOSE 80
+EXPOSE 8080
 # Removed the section that breaks pip installations
 # && apt-get remove --purge --auto-remove -y apt-transport-https ca-certificates
 # added --no-tty to apt-key adv as without it it breaks (even though it works in official Nginx)
@@ -146,6 +146,12 @@ RUN chmod +x /start.sh
 # Copy the entrypoint that will generate Nginx additional configs
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+LABEL com.amazonaws.sagemaker.capabilities.accept-bind-to-port=true
+
+RUN cp /start.sh /serve
+RUN chmod +x /serve
+RUN ln -s /serve /bin/serve
 
 ENTRYPOINT ["/entrypoint.sh"]
 
