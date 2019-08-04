@@ -1,10 +1,20 @@
-import sys
+import json
+
+import pandas as pd
+from flask import Flask, request, make_response
+
+application = Flask(__name__)
 
 
-def application(env, start_response):
-    version = "{}.{}".format(sys.version_info.major, sys.version_info.minor)
-    start_response("200 OK", [("Content-Type", "text/plain")])
-    message = "Hello World from a default Nginx uWSGI Python {} app in a Docker container (default)".format(
-        version
-    )
-    return [message.encode("utf-8")]
+@application.route("/ping", methods=['GET'])
+def ping():
+    return ''
+
+
+@application.route("/invocations", methods=['POST'])
+def invocations():
+    req_data = request.get_data()
+     # TODO
+    resp = make_response(json.dumps({'echo': req_data}))
+    resp.headers['Content-Type'] ='application/json'
+    return resp
