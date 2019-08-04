@@ -11,8 +11,8 @@ USE_NGINX_WORKER_PROCESSES=${NGINX_WORKER_PROCESSES:-1}
 # Cannot exceed worker_rlimit_nofile, see NGINX_WORKER_OPEN_FILES below
 NGINX_WORKER_CONNECTIONS=${NGINX_WORKER_CONNECTIONS:-1024}
 
-# Get the listen port for Nginx, default to 80
-USE_LISTEN_PORT=${LISTEN_PORT:-80}
+# Get the listen port for Nginx, default to 8080
+USE_LISTEN_PORT=${SAGEMAKER_BIND_TO_PORT:-8080}
 
 if [ -f /app/nginx.conf ]; then
     cp /app/nginx.conf /etc/nginx/nginx.conf
